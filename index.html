@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arcade</title>
+<meta name="description" content="Small browser games, built while learning game development.">
+<style>
+  :root { --bg: #0d1021; --card: #171b33; --tag: #262b4d; --text: #e8eaf6; --muted: #a3a9cc; --accent: #8be9fd; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 960px; margin: 0 auto; padding: 48px 16px; }
+  h1 { margin: 0 0 4px; font-size: 2rem; }
+  header p { margin: 0 0 32px; color: var(--muted); }
+  ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+  li { background: var(--card); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+  li img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; background: #000; }
+  .info { padding: 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .tag { align-self: flex-start; font-size: .75rem; padding: 2px 8px; border-radius: 999px; background: var(--tag); color: var(--accent); }
+  h2 { margin: 0; font-size: 1.2rem; }
+  .info p { margin: 0; color: var(--muted); flex: 1; }
+  .links { display: flex; gap: 16px; }
+  a { color: var(--accent); }
+  .play { font-weight: 600; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Arcade</h1>
+    <p>Small browser games, built while learning game development.</p>
+  </header>
+  <!-- To add a game: copy one <li>, point the links at the game's repo name, and add a 4:3 screenshot to thumbs/. -->
+  <ul>
+    <li>
+      <a href="/phaser-breakout/" tabindex="-1" aria-hidden="true"><img src="thumbs/phaser-breakout.jpg" alt=""></a>
+      <div class="info">
+        <span class="tag">Phaser 3</span>
+        <h2>Breakout</h2>
+        <p>Bounce the ball and smash the bricks. Each level adds a row and speeds up.</p>
+        <div class="links">
+          <a class="play" href="/phaser-breakout/">Play Breakout</a>
+          <a href="https://github.com/CraigSubnarine/phaser-breakout">Source</a>
+        </div>
+      </div>
+    </li>
+  </ul>
+</main>
+</body>
+</html>
