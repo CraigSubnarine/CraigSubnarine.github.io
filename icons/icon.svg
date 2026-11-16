@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Arcade app icon: full-bleed background so it also works as a maskable icon (art stays in the middle 70%). -->
+  <rect width="512" height="512" fill="#0d1021"/>
+  <circle cx="256" cy="256" r="196" fill="#171b33"/>
+  <rect x="136" y="300" width="240" height="80" rx="28" fill="#8be9fd"/>
+  <circle cx="186" cy="340" r="14" fill="#0d1021"/>
+  <circle cx="326" cy="340" r="14" fill="#0d1021"/>
+  <rect x="242" y="196" width="28" height="120" rx="10" fill="#e8eaf6"/>
+  <circle cx="256" cy="172" r="58" fill="#ff4fd8"/>
+  <circle cx="236" cy="152" r="16" fill="#ffa8ec"/>
+</svg>
