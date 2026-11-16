@@ -30,6 +30,17 @@
   .install { font: inherit; font-weight: 600; min-height: 48px; padding: 0 20px; margin: -12px 0 32px; border: 0; border-radius: 999px; background: var(--accent); color: var(--bg); cursor: pointer; }
   header .hint { margin-top: -12px; }
   footer { margin-top: 48px; font-size: .875rem; color: var(--muted); }
+  /* One sign-in for every game (arcade.js). */
+  .account { margin: -12px 0 32px; }
+  .account [hidden] { display: none !important; }
+  .account p { margin: 0; }
+  .account .hint { margin-top: 8px; font-size: .9rem; }
+  .signin { font: inherit; font-weight: 600; min-height: 48px; padding: 0 20px; border: 2px solid var(--accent); border-radius: 999px; background: none; color: var(--accent); cursor: pointer; }
+  .link { font: inherit; min-height: 44px; padding: 0 4px; border: 0; background: none; color: var(--accent); text-decoration: underline; cursor: pointer; }
+  .nameForm { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 8px; }
+  .nameForm input { font: inherit; min-height: 44px; padding: 0 12px; border: 2px solid var(--tag); border-radius: 10px; background: var(--card); color: var(--text); }
+  .nameForm .save { font: inherit; font-weight: 600; min-height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: var(--accent); color: var(--bg); cursor: pointer; }
+  .nameForm .hint { flex-basis: 100%; margin: 0; }
 </style>
 </head>
 <body>
@@ -39,6 +50,21 @@
     <p>Small browser games, built while learning game development.</p>
     <button type="button" class="install" id="installBtn" hidden>Install the Arcade app</button>
     <p class="hint" id="iosHint" hidden>Play it like an app: tap Share, then <b>Add to Home Screen</b>.</p>
+    <div class="account">
+      <div id="signedOut" hidden>
+        <button type="button" class="signin" id="signInBtn">Sign in with Google</button>
+        <p class="hint" id="signInHint">One sign-in for every game: post your scores and keep your progress on any device.</p>
+      </div>
+      <div id="signedIn" hidden>
+        <p>Playing as <b id="acctName"></b> · <button type="button" class="link" id="renameBtn">Change name</button> · <button type="button" class="link" id="signOutBtn">Sign out</button></p>
+        <form class="nameForm" id="nameForm" hidden>
+          <input type="text" id="nameInput" maxlength="20" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Player name">
+          <button type="submit" class="save">Save</button>
+          <button type="button" class="link" id="nameCancel">Cancel</button>
+          <p class="hint" id="nameErr"></p>
+        </form>
+      </div>
+    </div>
   </header>
   <!-- To add a game: copy one <li>, point the links at the game's repo name, and add a 4:3 screenshot to thumbs/. -->
   <ul>
@@ -96,6 +122,8 @@
   </ul>
   <footer><a href="/privacy.html">Privacy</a></footer>
 </main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+<script src="/arcade.js"></script>
 <script>
   // Installable app: the service worker covers the hub and every game (see sw.js).
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(() => {});
@@ -106,6 +134,34 @@
   addEventListener('appinstalled', () => { installBtn.hidden = true; });
   // ponytail: iPhones have no install prompt, so show how; iPads that report themselves as Macs miss the hint.
   if (/iPhone|iPad|iPod/.test(navigator.userAgent) && !navigator.standalone) document.getElementById('iosHint').hidden = false;
+
+  // One sign-in for every game: they all live on this site, so the session (arcade.js, the same file the games
+  // use) is shared. Names are player input, so they only ever go in as text.
+  const $ = id => document.getElementById(id);
+  function showAccount(a) {
+    $('signedOut').hidden = !!a.user || !a.online;
+    $('signedIn').hidden = !a.user;
+    $('acctName').textContent = a.name ?? '';
+  }
+  const account = createArcade('arcade', showAccount);
+  showAccount(account);
+  $('signInBtn').addEventListener('click', async () => {
+    if (!(await account.signIn())) $('signInHint').textContent = "Can't reach sign-in right now. Check your connection.";
+  });
+  $('signOutBtn').addEventListener('click', () => account.signOut());
+  $('renameBtn').addEventListener('click', () => {
+    $('nameForm').hidden = false;
+    $('nameInput').value = account.name ?? '';
+    $('nameErr').textContent = '';
+    $('nameInput').focus();
+  });
+  $('nameCancel').addEventListener('click', () => { $('nameForm').hidden = true; });
+  $('nameForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const err = await account.rename($('nameInput').value);
+    if (err) $('nameErr').textContent = err;
+    else $('nameForm').hidden = true;
+  });
 </script>
 </body>
 </html>
