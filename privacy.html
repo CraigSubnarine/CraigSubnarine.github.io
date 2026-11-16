@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arcade privacy</title>
+<meta name="description" content="What the Arcade stores when you play and when you sign in.">
+<meta name="theme-color" content="#0d1021">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+<style>
+  :root { --bg: #0d1021; --card: #171b33; --text: #e8eaf6; --muted: #a3a9cc; --accent: #8be9fd; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 680px; margin: 0 auto; padding: 48px 16px; }
+  h1 { margin: 0 0 4px; font-size: 2rem; }
+  h2 { margin: 32px 0 8px; font-size: 1.2rem; }
+  p, li { color: var(--muted); }
+  strong { color: var(--text); }
+  a { color: var(--accent); }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<main>
+  <p><a href="/">← Back to Arcade</a></p>
+  <h1>Privacy</h1>
+  <p>Last updated: November 16, 2026</p>
+
+  <h2>Playing without signing in</h2>
+  <p>You don't need an account to play. Settings, best scores and saved progress stay in your browser on your device. Nothing is sent to us.</p>
+
+  <h2>Signing in with Google</h2>
+  <p>Signing in is optional. It puts your scores on leaderboards and backs up your progress. When you sign in, Google shares your <strong>name, email address and profile picture</strong> with our sign-in service, <a href="https://supabase.com/privacy">Supabase</a>, which keeps them with your account. The games never show them to other players.</p>
+  <p>For each signed-in player we store:</p>
+  <ul>
+    <li><strong>A player name</strong>, such as Player-1234, which you can change. It's public on leaderboards.</li>
+    <li><strong>Your scores</strong>: the game, the score, the mode or difficulty, the run's seed and the date. These are public on leaderboards.</li>
+    <li><strong>Saved progress</strong> for each game. Only you can see it.</li>
+  </ul>
+
+  <h2>What we don't do</h2>
+  <ul>
+    <li>No ads, no tracking and no analytics.</li>
+    <li>We don't sell or share your data with anyone.</li>
+  </ul>
+  <p>Games load their code from <a href="https://www.jsdelivr.com/terms/privacy-policy-jsdelivr-net">jsDelivr</a> and fonts from <a href="https://policies.google.com/privacy">Google Fonts</a>. Like any website, those services see your IP address when they send the files.</p>
+
+  <h2>Deleting your data</h2>
+  <p>To delete your account, scores and saves, <a href="https://github.com/CraigSubnarine/CraigSubnarine.github.io/issues/new?title=Delete%20my%20Arcade%20data">open a request on GitHub</a>. Include your player name, but not your email address: the request is public. You can also write to the support email shown on Google's sign-in screen. Data kept only on your device can be removed by clearing this site's data in your browser.</p>
+
+  <h2>Changes</h2>
+  <p>If this page changes, the date at the top changes too.</p>
+</main>
+</body>
+</html>
